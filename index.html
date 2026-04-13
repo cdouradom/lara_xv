@@ -44,7 +44,8 @@
     html {
       -webkit-text-size-adjust: 100%;
       text-size-adjust: 100%;
-      scroll-behavior: smooth;
+      /* O scroll real está em .invite; smooth aplicado lá */
+      scroll-behavior: auto;
     }
     body {
       margin: 0;
@@ -65,6 +66,9 @@
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
+      }
+      .invite {
+        scroll-behavior: auto;
       }
     }
     .stage {
@@ -214,10 +218,11 @@
       .footer-floral { transform: translateX(-50%); }
       .bg-shimmer { animation: none; opacity: 0.18; }
     }
-    /* Scroll só em main.invite; fundo e florals fixos não rolam */
+    /* Scroll só em main.invite; stage + florals header/rodapé ficam fixed (sem rolar) */
     .invite {
       position: relative;
       z-index: 2;
+      width: 100%;
       max-width: 26rem;
       margin: 0 auto;
       height: 100vh;
@@ -226,22 +231,24 @@
       max-height: 100dvh;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: stretch;
       padding: calc(var(--space-xl) + var(--safe-t)) var(--space-md)
         calc(var(--space-xl) + var(--safe-b) + min(26vh, 200px));
       text-align: center;
       overflow-x: hidden;
       overflow-y: auto;
+      scroll-behavior: smooth;
       -webkit-overflow-scrolling: touch;
       overscroll-behavior-y: contain;
       touch-action: pan-y;
     }
+    /* Altura = conteúdo real: assim scrollHeight > viewport e a rolagem funciona em qualquer largura */
     .content {
-      flex: 1;
+      flex: 0 1 auto;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       width: 100%;
       gap: var(--space-md);
     }
@@ -386,6 +393,7 @@
     .actions-wrap {
       position: relative;
       z-index: 3;
+      flex-shrink: 0;
       width: 100%;
       margin-top: var(--space-lg);
       padding: var(--space-md) var(--space-sm);
@@ -482,6 +490,7 @@
     .footer-area {
       position: relative;
       z-index: 1;
+      flex-shrink: 0;
       width: 100%;
       margin-top: var(--space-lg);
       display: flex;
@@ -552,12 +561,27 @@
       line-height: 1.25;
       text-align: center;
     }
+    /* Desktop / tablet largo: coluna centrada no ecrã; ícones numa linha */
+    @media (min-width: 768px) {
+      .actions {
+        flex-wrap: nowrap;
+        justify-content: center;
+        gap: clamp(1.25rem, 2.5vw, 2rem);
+      }
+      .date-poster {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
     /* --- Abertura: véu minimalista (romântico, alinhado ao convite) --- */
     .invite-reveal {
       position: relative;
       z-index: 1;
       min-height: 100vh;
       min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       opacity: 0;
       visibility: hidden;
       filter: blur(12px);
@@ -651,7 +675,7 @@
       opacity: 0.88;
     }
     .invite-curtain__name {
-      font-family: "Miss Fajardose", cursive;
+      font-family: "Monsieur La Doulaise", cursive;
       font-size: clamp(3.25rem, 15vw, 5.25rem);
       font-weight: 400;
       line-height: 0.95;
@@ -660,7 +684,7 @@
       text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
     }
     .invite-curtain__xv {
-      font-family: "Monsieur La Doulaise", cursive;
+      font-family: "Miss Fajardose", cursive;
       font-size: clamp(1.6rem, 7.5vw, 2.35rem);
       font-weight: 400;
       letter-spacing: 0.38em;
