@@ -15,6 +15,7 @@ Site estático: **`index.html`** + pasta **`assets/`**.
 - `floral-lilas.png`, `ramo-verde-dourado.png` — canto superior esquerdo  
 - `floral-footer-banner.png` — rodapé fixo  
 - `clique-aqui.png` — dica no rodapé  
+- `veil-photo-forest.png`, `veil-photo-field.png` — fotos de fundo do véu (semi-transparentes)  
 
 ## Git
 
