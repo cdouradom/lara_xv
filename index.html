@@ -896,13 +896,13 @@
         }
       }
 
-      if (reduce) {
-        if (gate) gate.remove();
-        openInvite();
+      /* Não remover o véu só por prefers-reduced-motion: muitos dispositivos
+         (ex. iOS com “Reduzir movimento”) deixariam de ver a abertura no GitHub Pages.
+         Com reduce, o CSS já encurta transições; o AOS fica desativado em startAOS. */
+      if (!gate || !btn || !reveal) {
+        if (reveal) openInvite();
         return;
       }
-
-      if (!gate || !btn || !reveal) return;
 
       btn.addEventListener("click", function () {
         if (gate.classList.contains("invite-curtain--leaving")) return;
