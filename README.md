@@ -1,42 +1,56 @@
-# Lara XV — Convite digital
+# Lara XV — Floresta Encantada
 
-Site estático: **`index.html`** + pasta **`assets/`**.
+Convite digital em **uma página estática**: tema floresta encantada, véu de abertura, animações leves e links para local, RSVP (WhatsApp) e lista de presentes.
 
-## Conteúdo do repositório
+## O que há no projeto
 
-| Caminho | Uso |
-|--------|-----|
-| `index.html` | Convite (véu de abertura, animações, AOS). |
-| `assets/` | Imagens referenciadas pelo HTML. |
+| Caminho | Descrição |
+|--------|-----------|
+| `index.html` | Página única: estilos e scripts embutidos; conteúdo do convite. |
+| `assets/` | Imagens PNG usadas pelo HTML (florais, véu, rodapé, ícone “clique aqui”). |
 
-### Ficheiros em `assets/`
+### Imagens esperadas em `assets/`
 
-- `reference-invite.png`, `floral-frame.png` — canto superior direito  
-- `floral-lilas.png`, `ramo-verde-dourado.png` — canto superior esquerdo  
-- `floral-footer-banner.png` — rodapé fixo  
-- `clique-aqui.png` — dica no rodapé  
-- `veil-photo-forest.png`, `veil-photo-field.png` — fotos de fundo do véu (semi-transparentes)  
+| Ficheiro | Uso |
+|----------|-----|
+| `reference-invite.png`, `floral-frame.png` | Canto superior direito (camadas lilás + aquarela) |
+| `floral-lilas.png`, `ramo-verde-dourado.png` | Canto superior esquerdo |
+| `floral-footer-banner.png` | Faixa floral fixa no rodapé |
+| `clique-aqui.png` | Dica visual acima do texto do rodapé |
+| `veil-photo-field.png`, `veil-photo-forest.png` | Fotos de fundo do véu de abertura |
 
-## Git
+## Tecnologias
+
+- **HTML5** + **CSS** (variáveis, `clamp`, safe areas, `prefers-reduced-motion`)
+- **AOS** (Animate On Scroll) via [unpkg](https://unpkg.com/aos@2.3.1/)
+- **Google Fonts**: Cormorant Garamond, Miss Fajardose, Monsieur La Doulaise, Montserrat
+
+> É necessária ligação à internet para fontes, AOS e links externos (Maps, WhatsApp, Canva).
+
+## Como ver localmente
+
+Abrir `index.html` diretamente no navegador **ou** servir a pasta (recomendado para testar caminhos relativos):
 
 ```bash
 cd LARA_XV
-git add index.html assets/ README.md .gitignore
-git commit -m "Convite Lara XV"
-```
-
-O `.gitignore` exclui coisas que não devem ir para o remoto (`.cursor/`, logs, `_archive/`, etc.).
-
-## Local
-
-Abrir `index.html` no browser ou:
-
-```bash
 python3 -m http.server 8080
 ```
 
-→ `http://localhost:8080/`
+Abrir [http://localhost:8080/](http://localhost:8080/).
 
 ## Deploy
 
-Publicar a **raiz** do repositório (com `index.html` na raiz) em GitHub Pages, Netlify, Cloudflare Pages, etc.
+Publicar a **raiz** do repositório (com `index.html` na raiz e a pasta `assets/` com as imagens) em [GitHub Pages](https://pages.github.com/), Netlify, Cloudflare Pages ou similar.
+
+## Repositório
+
+Remoto: `git@github.com:cdouradom/lara_xv.git` (branch `main`).
+
+## Git (exemplo de commit)
+
+```bash
+git add index.html assets/ README.md .gitignore
+git commit -m "Convite Lara XV — Floresta Encantada"
+```
+
+O `.gitignore` exclui ficheiros locais que não devem ir para o remoto (`.cursor/`, logs, `_archive/`, etc.).
