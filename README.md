@@ -1,56 +1,67 @@
 # Lara XV — Floresta Encantada
 
-Convite digital em **uma página estática**: tema floresta encantada, véu de abertura, animações leves e links para local, RSVP (WhatsApp) e lista de presentes.
+Convite digital com **React (Vite)**: o mesmo layout, animações, véu de abertura, RSVP para a planilha (Google Apps Script), WhatsApp e lista de presentes.
 
-## O que há no projeto
+## Estrutura do projeto
 
 | Caminho | Descrição |
 |--------|-----------|
-| `index.html` | Página única: estilos e scripts embutidos; conteúdo do convite. |
-| `assets/` | Imagens PNG usadas pelo HTML (florais, véu, rodapé, ícone “clique aqui”). |
+| `index.html` | Entrada mínima do Vite (monta `#root`). |
+| `src/` | Aplicação React (`App.jsx`, componentes, estilos globais). |
+| `src/index.css` | CSS do convite (extraído da versão estática; variáveis de imagem de canto são definidas em `src/paths.js` + `main.jsx`). |
+| `public/assets/` | Cópia gerada automaticamente a partir de `assets/` (`npm install` / `postinstall`). Não é obrigatório commitar. |
+| `scripts/rsvp-sheet-append.gs` | Apps Script para receber o RSVP na folha. |
+| `legacy/static-invite.html` | Cópia de referência da página **só HTML** anterior (não usada no build). |
 
-### Imagens esperadas em `assets/`
+### Imagens (pasta `assets/` na raiz)
 
 | Ficheiro | Uso |
 |----------|-----|
-| `reference-invite.png`, `floral-frame.png` | Canto superior direito (camadas lilás + aquarela) |
+| `reference-invite.png`, `floral-frame.png` | Canto superior direito |
 | `floral-lilas.png`, `ramo-verde-dourado.png` | Canto superior esquerdo |
-| `floral-footer-banner.png` | Faixa floral fixa no rodapé |
-| `clique-aqui.png` | Dica visual acima do texto do rodapé |
-| `veil-photo-field.png`, `veil-photo-forest.png` | Fotos de fundo do véu de abertura |
+| `floral-footer-banner.png` | Rodapé fixo |
+| `clique-aqui.png` | Dica “clique aqui” |
+| `veil-photo-field.png`, `veil-photo-forest.png` | Véu inicial |
 
-## Tecnologias
+O script `scripts/ensure-public-assets.mjs` copia `assets/` → `public/assets/` em cada `npm install`, para o Vite servir os ficheiros.
 
-- **HTML5** + **CSS** (variáveis, `clamp`, safe areas, `prefers-reduced-motion`)
-- **AOS** (Animate On Scroll) via [unpkg](https://unpkg.com/aos@2.3.1/)
-- **Google Fonts**: Cormorant Garamond, Miss Fajardose, Monsieur La Doulaise, Montserrat
+## Variável de ambiente (RSVP)
 
-> É necessária ligação à internet para fontes, AOS e links externos (Maps, WhatsApp, Canva).
+1. Copia `.env.example` para `.env`.
+2. Define `VITE_RSVP_SUBMIT_URL` com o URL da Web App publicada (Apps Script), o mesmo valor que antes estava no HTML.
 
-## Como ver localmente
+Sem este URL, o RSVP mostra a mensagem de configuração em vez de enviar.
 
-Abrir `index.html` diretamente no navegador **ou** servir a pasta (recomendado para testar caminhos relativos):
+## Desenvolvimento
+
+Requer **Node.js** (recomendado v18+).
 
 ```bash
-cd LARA_XV
-python3 -m http.server 8080
+npm install
+npm run dev
 ```
 
-Abrir [http://localhost:8080/](http://localhost:8080/).
+Abre o URL indicado no terminal (por defeito [http://localhost:5173/](http://localhost:5173/)).
 
-## Deploy
+## Build e deploy
 
-Publicar a **raiz** do repositório (com `index.html` na raiz e a pasta `assets/` com as imagens) em [GitHub Pages](https://pages.github.com/), Netlify, Cloudflare Pages ou similar.
+```bash
+npm run build
+```
+
+Saída em `dist/`. Pré-visualização local:
+
+```bash
+npm run preview
+```
+
+Para **GitHub Pages** a partir da pasta do projeto (ex.: `https://<user>.github.io/lara_xv/`):
+
+1. Em `vite.config.js`, ajusta `base` para o nome do repositório, por exemplo `base: '/lara_xv/'`.
+2. Faz deploy do **conteúdo de `dist/`** (GitHub Actions, branch `gh-pages`, ou “Pages” a apontar para a artefacto de build).
+
+> Fontes, AOS e links externos continuam a precisar de internet.
 
 ## Repositório
 
-Remoto: `git@github.com:cdouradom/lara_xv.git` (branch `main`).
-
-## Git (exemplo de commit)
-
-```bash
-git add index.html assets/ README.md .gitignore
-git commit -m "Convite Lara XV — Floresta Encantada"
-```
-
-O `.gitignore` exclui ficheiros locais que não devem ir para o remoto (`.cursor/`, logs, `_archive/`, etc.).
+Remoto: `git@github.com:cdouradom/lara_xv.git`.

@@ -30,3 +30,6 @@ v1/
 
 # Se no futuro existir tooling Node
 node_modules/
+dist/
+# Gerado a partir de `assets/` na raiz (ver scripts/ensure-public-assets.mjs)
+public/assets/
