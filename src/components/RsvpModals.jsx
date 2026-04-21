@@ -153,7 +153,7 @@ export function RsvpModals({ open, onRequestClose }) {
                             className="rsvp-field__input rsvp-nome"
                             id={`rsvp-nome-${row.id}`}
                             autoComplete="name"
-                            placeholder="Cintia Marques Dourado"
+                            placeholder="Digite seu nome completo aqui"
                             maxLength={120}
                             value={row.nome}
                             onChange={(e) => updateRow(index, "nome", e.target.value)}

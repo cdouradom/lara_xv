@@ -8,13 +8,11 @@ export function InviteReveal({ revealed, ariaHidden, onOpenRsvp }) {
       aria-hidden={ariaHidden ? "true" : "false"}
     >
       {/* Fundo fotográfico do véu (campo + floresta) — mobile e desktop; stage mais suave quando visível */}
+      {/* Só campo (alta transparência); o véu “Toque para entrar” mantém as duas fotos em InviteCurtain */}
       <div className="invite-desktop-veil" aria-hidden="true">
         <div className="invite-desktop-veil__photos">
-          <div className="invite-desktop-veil__photo invite-desktop-veil__photo--upper">
+          <div className="invite-desktop-veil__photo invite-desktop-veil__photo--field">
             <img src={publicAsset("veil-photo-field.png")} alt="" width={1200} height={1600} decoding="async" loading="lazy" />
-          </div>
-          <div className="invite-desktop-veil__photo invite-desktop-veil__photo--lower">
-            <img src={publicAsset("veil-photo-forest.png")} alt="" width={1200} height={1600} decoding="async" loading="lazy" />
           </div>
         </div>
         <div className="invite-desktop-veil__wash" />
@@ -156,7 +154,7 @@ export function InviteReveal({ revealed, ariaHidden, onOpenRsvp }) {
       </main>
       <a
         className="wa-fab"
-        href="https://api.whatsapp.com/send/?phone=5519995643602&text=Oii%2C+quero+confirmar+minha+presen%C3%A7a+para+a+Festa+da+Lara%21+&type=phone_number&app_absent=0"
+        href="https://api.whatsapp.com/send/?phone=5519995643602&text=Oii%2C+quero+falar+sobre+a+Festa+da+Lara%21+&type=phone_number&app_absent=0"
         target="_blank"
         rel="noopener noreferrer"
         title="Contato WhatsApp"

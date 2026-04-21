@@ -34,8 +34,10 @@
       --invite-date-max: min(21.5rem, 100%);
       --invite-pad-inline: clamp(1rem, 4.5vw, 1.35rem);
       --invite-footer-hint-max: min(19rem, 100%);
-      /* Espaço extra no fundo do scroll para o conteúdo ficar acima do floral fixo do rodapé */
+      /* Espaço extra no fundo do scroll (telemóvel ajusta em @media max 767.98px) */
       --invite-bottom-scroll: max(14rem, min(44vh, 340px));
+      /* Largura do banner floral fixo: iguala à coluna do convite em tablet/desktop */
+      --invite-footer-banner-width: 100vw;
     }
     *, *::before, *::after { box-sizing: border-box; }
     html {
@@ -238,6 +240,9 @@
       -webkit-overflow-scrolling: touch;
       overscroll-behavior-y: contain;
       touch-action: pan-y;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
     }
     /* Coluna única: secções empilhadas com o mesmo ritmo em todo o ecrã */
     .invite-shell {
@@ -298,9 +303,18 @@
       color: var(--forest);
       text-shadow: 0 1px 0 rgba(255, 255, 255, 0.95), 0 5px 22px rgba(4, 50, 32, 0.16);
     }
+    /* Só text-shadow: filter/drop-shadow em texto vivo deixa glyphs borrados */
     @keyframes titleSoft {
-      0%, 100% { filter: drop-shadow(0 3px 14px rgba(10, 74, 45, 0.14)); }
-      50% { filter: drop-shadow(0 5px 24px rgba(10, 107, 63, 0.22)); }
+      0%, 100% {
+        text-shadow:
+          0 2px 0 rgba(255, 255, 255, 0.98),
+          0 4px 20px rgba(4, 50, 32, 0.16);
+      }
+      50% {
+        text-shadow:
+          0 2px 0 rgba(255, 255, 255, 0.98),
+          0 8px 34px rgba(10, 74, 45, 0.22);
+      }
     }
     .divider {
       width: 3rem;
@@ -511,7 +525,7 @@
       right: auto;
       bottom: 0;
       z-index: 1;
-      width: 100vw;
+      width: var(--invite-footer-banner-width);
       max-width: none;
       transform: translateX(-50%);
       pointer-events: none;
@@ -602,10 +616,65 @@
       }
     }
 
-    /* Mobile / tablet: mais espaço por baixo para a dica ficar bem acima do floral fixo */
-    @media (max-width: 1023.98px) {
+    /* Telemóvel: scroll extra moderado (~30% do valor anterior) para a dica final ficar legível */
+    @media (max-width: 767.98px) {
       :root {
-        --invite-bottom-scroll: max(19rem, min(58vh, 460px));
+        --invite-bottom-scroll: max(7.25rem, min(24vh, 175px), 14dvh);
+      }
+      .invite-shell {
+        min-height: calc(100dvh + 1.65rem);
+      }
+      /* Mesmo tom do destaque “Inspirado na magia…” para ler sobre o campo ao fundo */
+      .invite-section--intro .body-text:not(.body-text--accent) {
+        color: var(--forest-sage);
+        font-weight: 400;
+      }
+      /* Banner do rodapé mais transparente no topo: funde flores com o véu do convite */
+      .footer-floral {
+        -webkit-mask-image: linear-gradient(
+          180deg,
+          transparent 0%,
+          rgba(0, 0, 0, 0.12) 18%,
+          rgba(0, 0, 0, 0.38) 38%,
+          rgba(0, 0, 0, 0.72) 62%,
+          #000 100%
+        );
+        mask-image: linear-gradient(
+          180deg,
+          transparent 0%,
+          rgba(0, 0, 0, 0.12) 18%,
+          rgba(0, 0, 0, 0.38) 38%,
+          rgba(0, 0, 0, 0.72) 62%,
+          #000 100%
+        );
+      }
+      .footer-floral__img {
+        opacity: 0.76;
+      }
+    }
+
+    /* iPad / tablet: rodapé alinhado à largura do convite; ritmo compacto; scroll só se precisar (overflow no .invite) */
+    @media (min-width: 768px) and (max-width: 1023.98px) {
+      :root {
+        --invite-bottom-scroll: clamp(1.75rem, 5vh, 3.5rem);
+        --invite-footer-banner-width: min(30rem, calc(100vw - 2.25rem));
+        --invite-shell-gap: clamp(0.65rem, 1.85vw, 1.25rem);
+      }
+      .invite-section--hero {
+        gap: 0.35rem;
+      }
+      .invite-section--intro {
+        gap: var(--space-sm);
+      }
+      .hero__name {
+        font-size: clamp(3.35rem, 10.5vw, 5.4rem);
+      }
+      .hero__xv {
+        font-size: clamp(2.05rem, 6.5vw, 3.35rem);
+      }
+      .date-poster {
+        transform: scale(0.94);
+        transform-origin: center center;
       }
     }
 
@@ -636,7 +705,8 @@
     .invite-reveal.invite-reveal--visible {
       opacity: 1;
       visibility: visible;
-      filter: blur(0);
+      /* none em vez de blur(0): evita camada de filtro que deixa texto “moles” em WebKit */
+      filter: none;
       transition:
         opacity 1.05s ease 0.12s,
         filter 1.15s ease 0.18s,
@@ -1219,7 +1289,7 @@
       display: none !important;
     }
 
-    /* Fundo fotográfico do véu (mobile + desktop — teste com véu também no telemóvel) */
+    /* Fundo fotográfico atrás do convite: só veil-photo-field (o véu “Toque para entrar” é outro componente) */
     .invite-desktop-veil {
       display: block;
       position: fixed;
@@ -1233,36 +1303,32 @@
       position: absolute;
       inset: 0;
       z-index: 0;
-      display: grid;
-      grid-template-rows: minmax(0, 1.05fr) minmax(0, 0.95fr);
     }
 
-    .invite-desktop-veil__photo {
-      position: relative;
+    .invite-desktop-veil__photo--field {
+      position: absolute;
+      inset: 0;
       overflow: hidden;
-      min-height: 0;
     }
 
-    .invite-desktop-veil__photo img {
+    .invite-desktop-veil__photo--field img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: 50% 42%;
       display: block;
-      transform: scale(1.02);
+      transform: scale(1.03);
+      /* Alta transparência: só um sutil campo por cima do stage */
+      opacity: 0.22;
+      -webkit-mask-image: radial-gradient(ellipse 120% 85% at 50% 45%, #000 0%, #000 55%, rgba(0, 0, 0, 0.35) 82%, transparent 100%);
+      mask-image: radial-gradient(ellipse 120% 85% at 50% 45%, #000 0%, #000 55%, rgba(0, 0, 0, 0.35) 82%, transparent 100%);
     }
 
-    .invite-desktop-veil__photo--upper img {
-      object-position: 50% 40%;
-      opacity: 0.5;
-      -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 58%, transparent 96%);
-      mask-image: linear-gradient(180deg, #000 0%, #000 58%, transparent 96%);
-    }
-
-    .invite-desktop-veil__photo--lower img {
-      object-position: 50% 72%;
-      opacity: 0.46;
-      -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 38%, #000 100%);
-      mask-image: linear-gradient(180deg, transparent 0%, #000 38%, #000 100%);
+    /* Só telemóvel: opacidade mais baixa que a base (0.22) e que desktop (0.26) */
+    @media (max-width: 767.98px) {
+      .invite-desktop-veil__photo--field img {
+        opacity: 0.12;
+      }
     }
 
     .invite-desktop-veil__wash {
@@ -1327,6 +1393,8 @@
         --invite-date-max: min(24rem, 100%);
         --invite-pad-inline: clamp(1.35rem, 2.8vw, 2.25rem);
         --invite-footer-hint-max: min(34rem, 100%);
+        --invite-footer-banner-width: min(40rem, calc(100vw - 3rem));
+        --invite-bottom-scroll: clamp(2rem, 8vh, 6rem);
       }
 
       .invite-reveal.invite-reveal--visible .stage {
@@ -1346,15 +1414,14 @@
         padding-right: var(--invite-pad-inline);
         padding-top: calc(var(--space-xl) + var(--safe-t));
         padding-bottom: calc(var(--space-xl) + var(--safe-b) + var(--invite-bottom-scroll));
-        background: rgba(253, 251, 255, 0.76);
+        /* Sem blur no fundo: backdrop-filter suaviza o que está atrás e o texto por cima parece pixelado */
+        background: rgba(253, 251, 255, 0.9);
         border: 1px solid rgba(123, 99, 168, 0.14);
         border-radius: 16px;
         box-shadow:
           0 28px 90px rgba(4, 50, 32, 0.14),
           0 8px 32px rgba(110, 82, 150, 0.1),
           inset 0 1px 0 rgba(255, 255, 255, 0.92);
-        backdrop-filter: blur(16px) saturate(1.12);
-        -webkit-backdrop-filter: blur(16px) saturate(1.12);
       }
 
       .hero__name {
@@ -1393,10 +1460,8 @@
         max-width: min(26rem, calc(100vw - 2rem));
       }
 
-      @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-        .invite {
-          background: rgba(253, 251, 255, 0.92);
-        }
+      .invite-desktop-veil__photo--field img {
+        opacity: 0.26;
       }
     }
 
