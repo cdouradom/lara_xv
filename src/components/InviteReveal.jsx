@@ -45,108 +45,113 @@ export function InviteReveal({ revealed, ariaHidden, onOpenRsvp }) {
         />
       </div>
       <main className="invite" role="main" id="invite-main" tabIndex={-1}>
-        <div className="content">
-          <h1 className="hero" data-aos="fade-down" data-aos-duration="1000" data-aos-easing="ease-out-cubic">
-            <span className="hero__name">Lara</span>
-            <span className="hero__xv">XV</span>
-          </h1>
+        <div className="invite-shell">
+          <section className="invite-section invite-section--hero" aria-labelledby="invite-hero-heading">
+            <h1 className="hero" id="invite-hero-heading" data-aos="fade-down" data-aos-duration="1000" data-aos-easing="ease-out-cubic">
+              <span className="hero__name">Lara</span>
+              <span className="hero__xv">XV</span>
+            </h1>
+            <div className="divider" data-aos="zoom-in" data-aos-delay="120" aria-hidden="true" />
+          </section>
 
-          <div className="divider" data-aos="zoom-in" data-aos-delay="120" aria-hidden="true" />
+          <section className="invite-section invite-section--intro" aria-label="Mensagem do convite">
+            <p className="body-text" data-aos="fade-up" data-aos-delay="180" data-aos-duration="850">
+              Entre a delicadeza da natureza e o encanto de um sonho que floresce, temos a honra de convidá-lo(a) para uma
+              noite memorável.
+            </p>
+            <p className="body-text body-text--accent" data-aos="fade-up" data-aos-delay="280" data-aos-duration="850">
+              Inspirado na magia de uma floresta encantada, celebraremos os seus 15 anos.
+            </p>
+          </section>
 
-          <p className="body-text" data-aos="fade-up" data-aos-delay="180" data-aos-duration="850">
-            Entre a delicadeza da natureza e o encanto de um sonho que floresce, temos a honra de convidá-lo(a) para uma
-            noite memorável.
-          </p>
-          <p className="body-text body-text--accent" data-aos="fade-up" data-aos-delay="280" data-aos-duration="850">
-            Inspirado na magia de uma floresta encantada, celebraremos os seus 15 anos.
-          </p>
-
-          <div
-            className="date-poster"
-            data-aos="fade-up"
-            data-aos-delay="400"
-            data-aos-duration="800"
-            role="group"
+          <section
+            className="invite-section invite-section--when"
             aria-label="Sexta-feira, 19 de junho de 2026, às 20 horas"
           >
-            <div className="date-poster__rail">
-              <span className="date-poster__line" />
-              <span className="date-poster__rail-label">Sexta</span>
-              <span className="date-poster__line" />
+            <div className="date-poster" data-aos="fade-up" data-aos-delay="400" data-aos-duration="800">
+              <div className="date-poster__rail">
+                <span className="date-poster__line" />
+                <span className="date-poster__rail-label">Sexta</span>
+                <span className="date-poster__line" />
+              </div>
+              <div className="date-poster__center">
+                <span className="date-poster__month">JUN</span>
+                <time className="date-poster__day" dateTime="2026-06-19T20:00">
+                  19
+                </time>
+                <span className="date-poster__year">2026</span>
+              </div>
+              <div className="date-poster__rail">
+                <span className="date-poster__line" />
+                <span className="date-poster__rail-label">20hrs</span>
+                <span className="date-poster__line" />
+              </div>
             </div>
-            <div className="date-poster__center">
-              <span className="date-poster__month">JUN</span>
-              <time className="date-poster__day" dateTime="2026-06-19T20:00">
-                19
-              </time>
-              <span className="date-poster__year">2026</span>
-            </div>
-            <div className="date-poster__rail">
-              <span className="date-poster__line" />
-              <span className="date-poster__rail-label">20hrs</span>
-              <span className="date-poster__line" />
-            </div>
-          </div>
-          <p className="dress-code" data-aos="fade-up" data-aos-delay="440" data-aos-duration="800">
-            Traje Social
-          </p>
-        </div>
+            <p className="dress-code" data-aos="fade-up" data-aos-delay="440" data-aos-duration="800">
+              Traje Social
+            </p>
+          </section>
 
-        <div className="actions-wrap" data-aos="fade-up" data-aos-delay="500" data-aos-duration="750">
-          <nav className="actions" aria-label="Links do convite">
-            <a
-              className="action"
-              href="https://www.google.com/maps/search/?api=1&query=R+Helena+de+Oliveira,+296+Santa+Barbara+D%27Oeste"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="Localização"
-            >
-              <span className="action__ring" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 21s7-4.5 7-11a7 7 0 1 0-14 0c0 6.5 7 11 7 11z" />
-                  <circle cx="12" cy="10" r="2.5" />
-                </svg>
-              </span>
-              <span>Local</span>
-            </a>
-            <button type="button" className="action" title="RSVP" onClick={onOpenRsvp}>
-              <span className="action__ring" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M9 12l2 2 4-4" />
-                  <circle cx="12" cy="12" r="9" />
-                </svg>
-              </span>
-              <span>RSVP</span>
-            </button>
-            <a
-              className="action"
-              href="https://www.canva.com/design/DAG-fuPiAW0/ucPiUcm3wT_iBzHGA8WvSw/view"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="Lista de presentes"
-            >
-              <span className="action__ring" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M20 12v10H4V12" />
-                  <path d="M2 7h20v5H2z" />
-                  <path d="M12 22V7" />
-                  <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
-                  <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
-                </svg>
-              </span>
-              <span>Presentes</span>
-            </a>
-          </nav>
-        </div>
-
-        <div className="footer-area" data-aos="fade-in" data-aos-delay="600">
-          <div className="footer-block">
-            <p className="footer-opt">Confirme até 31/05</p>
-            <div className="footer-tap" aria-hidden="true">
-              <img className="footer-tap__img" src={publicAsset("clique-aqui.png")} alt="" width={80} height={80} decoding="async" />
+          <section className="invite-section invite-section--links" aria-label="Atalhos do convite">
+            <div className="actions-wrap" data-aos="fade-up" data-aos-delay="500" data-aos-duration="750">
+              <nav className="actions" aria-label="Links do convite">
+                <a
+                  className="action"
+                  href="https://www.google.com/maps/search/?api=1&query=R+Helena+de+Oliveira,+296+Santa+Barbara+D%27Oeste"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Localização"
+                >
+                  <span className="action__ring" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 21s7-4.5 7-11a7 7 0 1 0-14 0c0 6.5 7 11 7 11z" />
+                      <circle cx="12" cy="10" r="2.5" />
+                    </svg>
+                  </span>
+                  <span>Local</span>
+                </a>
+                <button type="button" className="action" title="RSVP" onClick={onOpenRsvp}>
+                  <span className="action__ring" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M9 12l2 2 4-4" />
+                      <circle cx="12" cy="12" r="9" />
+                    </svg>
+                  </span>
+                  <span>RSVP</span>
+                </button>
+                <a
+                  className="action"
+                  href="https://www.canva.com/design/DAG-fuPiAW0/ucPiUcm3wT_iBzHGA8WvSw/view"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Lista de presentes"
+                >
+                  <span className="action__ring" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M20 12v10H4V12" />
+                      <path d="M2 7h20v5H2z" />
+                      <path d="M12 22V7" />
+                      <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
+                      <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+                    </svg>
+                  </span>
+                  <span>Presentes</span>
+                </a>
+              </nav>
             </div>
-            <p className="footer-hint">CLIQUE NOS ÍCONES PARA MAIS INFORMAÇÕES!</p>
-          </div>
+          </section>
+
+          <section className="invite-section invite-section--footer" aria-label="Confirmação e dicas">
+            <div className="footer-area" data-aos="fade-in" data-aos-delay="600">
+              <div className="footer-block">
+                <p className="footer-opt">Confirme até 31/05</p>
+                <div className="footer-tap" aria-hidden="true">
+                  <img className="footer-tap__img" src={publicAsset("clique-aqui.png")} alt="" width={80} height={80} decoding="async" />
+                </div>
+                <p className="footer-hint">CLIQUE NOS ÍCONES PARA MAIS INFORMAÇÕES!</p>
+              </div>
+            </div>
+          </section>
         </div>
       </main>
       <a

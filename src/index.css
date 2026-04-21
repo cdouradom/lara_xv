@@ -28,6 +28,12 @@
       --ref-aquarela: none;
       --header-floral-lilas: none;
       --header-floral-verde: none;
+      /* Ritmo do convite (mobile → desktop no @media 1024) */
+      --invite-shell-gap: clamp(1rem, 4.2vw, 1.65rem);
+      --invite-prose-max: min(20.5rem, calc(100% - 0.35rem));
+      --invite-date-max: min(21.5rem, 100%);
+      --invite-pad-inline: clamp(1rem, 4.5vw, 1.35rem);
+      --invite-footer-hint-max: min(19rem, 100%);
     }
     *, *::before, *::after { box-sizing: border-box; }
     html {
@@ -212,7 +218,7 @@
       position: relative;
       z-index: 2;
       width: 100%;
-      max-width: 26rem;
+      max-width: min(26rem, calc(100vw - var(--invite-pad-inline) * 2));
       margin: 0 auto;
       height: 100vh;
       height: 100dvh;
@@ -221,7 +227,7 @@
       display: flex;
       flex-direction: column;
       align-items: stretch;
-      padding: calc(var(--space-xl) + var(--safe-t)) var(--space-md)
+      padding: calc(var(--space-xl) + var(--safe-t)) var(--invite-pad-inline)
         calc(var(--space-xl) + var(--safe-b) + min(26vh, 200px));
       text-align: center;
       overflow-x: hidden;
@@ -231,18 +237,39 @@
       overscroll-behavior-y: contain;
       touch-action: pan-y;
     }
-    /* Altura = conteúdo real: assim scrollHeight > viewport e a rolagem funciona em qualquer largura */
-    .content {
-      flex: 0 1 auto;
+    /* Coluna única: secções empilhadas com o mesmo ritmo em todo o ecrã */
+    .invite-shell {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--invite-shell-gap);
+      width: 100%;
+      max-width: 100%;
+      flex: 1 1 auto;
+      min-height: 0;
+    }
+    .invite-section {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
+      text-align: center;
       width: 100%;
+    }
+    .invite-section--hero {
+      gap: var(--space-sm);
+    }
+    .invite-section--intro {
       gap: var(--space-md);
     }
+    .invite-section--when {
+      gap: var(--space-sm);
+    }
+    .invite-section--links .actions-wrap,
+    .invite-section--footer .footer-area {
+      margin-top: 0;
+    }
     .hero {
-      margin: 0 0 var(--space-sm);
+      margin: 0;
       line-height: 0.98;
       display: flex;
       flex-direction: column;
@@ -292,7 +319,8 @@
       font-size: clamp(0.88rem, 3.1vw, 0.98rem);
       line-height: 1.75;
       color: var(--text-body);
-      max-width: 20.5rem;
+      max-width: var(--invite-prose-max);
+      width: 100%;
     }
     .body-text--accent {
       font-weight: 500;
@@ -301,16 +329,18 @@
       line-height: 1.9;
       color: var(--forest-sage);
       text-transform: uppercase;
-      margin-top: var(--space-xs);
+      margin-top: 0;
+      max-width: var(--invite-prose-max);
+      width: 100%;
     }
     .date-poster {
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
       align-items: stretch;
       gap: 0.35rem 0.65rem;
-      margin: var(--space-md) 0 0;
+      margin: 0;
       width: 100%;
-      max-width: 21.5rem;
+      max-width: var(--invite-date-max);
       padding: 0.25rem 0;
     }
     .date-poster__rail {
@@ -371,7 +401,7 @@
       color: #8e8e8e;
     }
     .dress-code {
-      margin: var(--space-sm) 0 0;
+      margin: 0;
       font-family: "Montserrat", sans-serif;
       font-weight: 500;
       font-size: clamp(0.72rem, 2.5vw, 0.82rem);
@@ -384,8 +414,9 @@
       z-index: 3;
       flex-shrink: 0;
       width: 100%;
-      margin-top: var(--space-lg);
-      padding: var(--space-md) var(--space-sm);
+      max-width: 100%;
+      margin-top: 0;
+      padding: var(--space-md) clamp(0.65rem, 2.5vw, var(--space-sm));
       background: linear-gradient(
         165deg,
         rgba(236, 232, 244, 0.55) 0%,
@@ -493,7 +524,7 @@
       z-index: 1;
       flex-shrink: 0;
       width: 100%;
-      margin-top: var(--space-lg);
+      margin-top: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -562,16 +593,18 @@
       line-height: 1.25;
       text-align: center;
     }
-    /* Desktop / tablet largo: coluna centrada no ecrã; ícones numa linha */
+    /* Tablet: coluna um pouco mais larga; ícones numa linha */
+    @media (min-width: 640px) and (max-width: 1023.98px) {
+      .invite {
+        max-width: min(30rem, calc(100vw - 2.25rem));
+      }
+    }
+
     @media (min-width: 768px) {
       .actions {
         flex-wrap: nowrap;
         justify-content: center;
         gap: clamp(1.25rem, 2.5vw, 2rem);
-      }
-      .date-poster {
-        margin-left: auto;
-        margin-right: auto;
       }
     }
     /* --- Abertura: véu minimalista (romântico, alinhado ao convite) --- */
@@ -1183,6 +1216,14 @@
     }
 
     @media (min-width: 1024px) {
+      :root {
+        --invite-shell-gap: clamp(1.2rem, 2.4vw, 2rem);
+        --invite-prose-max: min(32rem, 100%);
+        --invite-date-max: min(24rem, 100%);
+        --invite-pad-inline: clamp(1.35rem, 2.8vw, 2.25rem);
+        --invite-footer-hint-max: min(34rem, 100%);
+      }
+
       .invite-desktop-veil {
         display: block;
         position: fixed;
@@ -1272,8 +1313,8 @@
         max-width: min(40rem, calc(100vw - 3rem));
         margin-left: auto;
         margin-right: auto;
-        padding-left: clamp(1.35rem, 2.8vw, 2.25rem);
-        padding-right: clamp(1.35rem, 2.8vw, 2.25rem);
+        padding-left: var(--invite-pad-inline);
+        padding-right: var(--invite-pad-inline);
         padding-top: calc(var(--space-xl) + var(--safe-t));
         padding-bottom: calc(var(--space-xl) + var(--safe-b) + min(22vh, 180px));
         background: rgba(253, 251, 255, 0.76);
@@ -1296,31 +1337,22 @@
       }
 
       .body-text {
-        max-width: min(32rem, 100%);
         font-size: clamp(0.95rem, 1.35vw, 1.05rem);
         line-height: 1.78;
       }
 
       .body-text--accent {
-        max-width: min(30rem, 100%);
         font-size: clamp(0.68rem, 1vw, 0.78rem);
       }
 
-      .date-poster {
-        max-width: min(24rem, 100%);
-      }
-
       .actions-wrap {
-        max-width: min(40rem, calc(100vw - 3rem));
-        margin-left: auto;
-        margin-right: auto;
         border-radius: 12px;
         padding-left: clamp(1rem, 2vw, 1.75rem);
         padding-right: clamp(1rem, 2vw, 1.75rem);
       }
 
       .footer-hint {
-        max-width: min(34rem, 100%);
+        max-width: var(--invite-footer-hint-max);
       }
 
       .wa-fab {
