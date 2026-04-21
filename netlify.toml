@@ -1,0 +1,9 @@
+# O convite é Vite/React: o site publicável fica em dist/ após o build.
+# Sem isto, o Netlify pode servir a raiz do repo e o index.html aponta para /src/main.jsx → tela branca / MIME errado.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
