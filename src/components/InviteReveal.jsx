@@ -7,7 +7,7 @@ export function InviteReveal({ revealed, ariaHidden, onOpenRsvp }) {
       id="invite-reveal"
       aria-hidden={ariaHidden ? "true" : "false"}
     >
-      {/* Desktop: mesmo fundo fotográfico do véu (campo + floresta), por baixo do stage suave */}
+      {/* Fundo fotográfico do véu (campo + floresta) — mobile e desktop; stage mais suave quando visível */}
       <div className="invite-desktop-veil" aria-hidden="true">
         <div className="invite-desktop-veil__photos">
           <div className="invite-desktop-veil__photo invite-desktop-veil__photo--upper">

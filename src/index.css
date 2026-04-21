@@ -1210,11 +1210,107 @@
       display: none !important;
     }
 
-    /* ========== Desktop (≥1024px): fundo = fotos do véu + cartão convite ========== */
+    /* Fundo fotográfico do véu (mobile + desktop — teste com véu também no telemóvel) */
     .invite-desktop-veil {
-      display: none;
+      display: block;
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      isolation: isolate;
     }
 
+    .invite-desktop-veil__photos {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      display: grid;
+      grid-template-rows: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    }
+
+    .invite-desktop-veil__photo {
+      position: relative;
+      overflow: hidden;
+      min-height: 0;
+    }
+
+    .invite-desktop-veil__photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transform: scale(1.02);
+    }
+
+    .invite-desktop-veil__photo--upper img {
+      object-position: 50% 40%;
+      opacity: 0.5;
+      -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 58%, transparent 96%);
+      mask-image: linear-gradient(180deg, #000 0%, #000 58%, transparent 96%);
+    }
+
+    .invite-desktop-veil__photo--lower img {
+      object-position: 50% 72%;
+      opacity: 0.46;
+      -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 38%, #000 100%);
+      mask-image: linear-gradient(180deg, transparent 0%, #000 38%, #000 100%);
+    }
+
+    .invite-desktop-veil__wash {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(
+        168deg,
+        rgba(253, 251, 255, 0.62) 0%,
+        rgba(248, 244, 252, 0.68) 32%,
+        rgba(241, 235, 248, 0.64) 68%,
+        rgba(253, 251, 255, 0.58) 100%
+      );
+    }
+
+    .invite-desktop-veil__glow {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: radial-gradient(ellipse 62% 48% at 50% 40%, rgba(186, 168, 218, 0.16) 0%, transparent 65%);
+    }
+
+    .invite-desktop-veil__grain {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      mix-blend-mode: multiply;
+    }
+
+    .invite-reveal.invite-reveal--visible .stage {
+      z-index: 1;
+      opacity: 0.24;
+    }
+
+    .invite-reveal.invite-reveal--visible .stage .bg-shimmer {
+      opacity: 0.18;
+    }
+
+    @media (max-width: 1023.98px) {
+      .invite-desktop-veil__wash {
+        background: linear-gradient(
+          168deg,
+          rgba(253, 251, 255, 0.72) 0%,
+          rgba(248, 244, 252, 0.78) 32%,
+          rgba(241, 235, 248, 0.74) 68%,
+          rgba(253, 251, 255, 0.7) 100%
+        );
+      }
+
+      .invite-reveal.invite-reveal--visible .stage {
+        opacity: 0.2;
+      }
+    }
+
+    /* ========== Desktop (≥1024px): cartão + tipografia ========== */
     @media (min-width: 1024px) {
       :root {
         --invite-shell-gap: clamp(1.2rem, 2.4vw, 2rem);
@@ -1224,83 +1320,7 @@
         --invite-footer-hint-max: min(34rem, 100%);
       }
 
-      .invite-desktop-veil {
-        display: block;
-        position: fixed;
-        inset: 0;
-        z-index: 0;
-        pointer-events: none;
-        isolation: isolate;
-      }
-
-      .invite-desktop-veil__photos {
-        position: absolute;
-        inset: 0;
-        z-index: 0;
-        display: grid;
-        grid-template-rows: minmax(0, 1.05fr) minmax(0, 0.95fr);
-      }
-
-      .invite-desktop-veil__photo {
-        position: relative;
-        overflow: hidden;
-        min-height: 0;
-      }
-
-      .invite-desktop-veil__photo img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-        transform: scale(1.02);
-      }
-
-      .invite-desktop-veil__photo--upper img {
-        object-position: 50% 40%;
-        opacity: 0.5;
-        -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 58%, transparent 96%);
-        mask-image: linear-gradient(180deg, #000 0%, #000 58%, transparent 96%);
-      }
-
-      .invite-desktop-veil__photo--lower img {
-        object-position: 50% 72%;
-        opacity: 0.46;
-        -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 38%, #000 100%);
-        mask-image: linear-gradient(180deg, transparent 0%, #000 38%, #000 100%);
-      }
-
-      .invite-desktop-veil__wash {
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-        background: linear-gradient(
-          168deg,
-          rgba(253, 251, 255, 0.62) 0%,
-          rgba(248, 244, 252, 0.68) 32%,
-          rgba(241, 235, 248, 0.64) 68%,
-          rgba(253, 251, 255, 0.58) 100%
-        );
-      }
-
-      .invite-desktop-veil__glow {
-        position: absolute;
-        inset: 0;
-        z-index: 2;
-        background: radial-gradient(ellipse 62% 48% at 50% 40%, rgba(186, 168, 218, 0.16) 0%, transparent 65%);
-      }
-
-      .invite-desktop-veil__grain {
-        position: absolute;
-        inset: 0;
-        z-index: 2;
-        opacity: 0.035;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-        mix-blend-mode: multiply;
-      }
-
-      /* Stage mais leve para o véu fotográfico respirar */
       .invite-reveal.invite-reveal--visible .stage {
-        z-index: 1;
         opacity: 0.26;
       }
 
@@ -1371,7 +1391,7 @@
       }
     }
 
-    @media (min-width: 1024px) and (prefers-reduced-motion: reduce) {
+    @media (prefers-reduced-motion: reduce) {
       .invite-desktop-veil__grain {
         opacity: 0.02;
       }
