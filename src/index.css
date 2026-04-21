@@ -34,6 +34,8 @@
       --invite-date-max: min(21.5rem, 100%);
       --invite-pad-inline: clamp(1rem, 4.5vw, 1.35rem);
       --invite-footer-hint-max: min(19rem, 100%);
+      /* Espaço extra no fundo do scroll para o conteúdo ficar acima do floral fixo do rodapé */
+      --invite-bottom-scroll: max(14rem, min(44vh, 340px));
     }
     *, *::before, *::after { box-sizing: border-box; }
     html {
@@ -228,7 +230,7 @@
       flex-direction: column;
       align-items: stretch;
       padding: calc(var(--space-xl) + var(--safe-t)) var(--invite-pad-inline)
-        calc(var(--space-xl) + var(--safe-b) + min(26vh, 200px));
+        calc(var(--space-xl) + var(--safe-b) + var(--invite-bottom-scroll));
       text-align: center;
       overflow-x: hidden;
       overflow-y: auto;
@@ -1336,7 +1338,7 @@
         padding-left: var(--invite-pad-inline);
         padding-right: var(--invite-pad-inline);
         padding-top: calc(var(--space-xl) + var(--safe-t));
-        padding-bottom: calc(var(--space-xl) + var(--safe-b) + min(22vh, 180px));
+        padding-bottom: calc(var(--space-xl) + var(--safe-b) + var(--invite-bottom-scroll));
         background: rgba(253, 251, 255, 0.76);
         border: 1px solid rgba(123, 99, 168, 0.14);
         border-radius: 16px;
