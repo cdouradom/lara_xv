@@ -602,6 +602,13 @@
       }
     }
 
+    /* Mobile / tablet: mais espaço por baixo para a dica ficar bem acima do floral fixo */
+    @media (max-width: 1023.98px) {
+      :root {
+        --invite-bottom-scroll: max(19rem, min(58vh, 460px));
+      }
+    }
+
     @media (min-width: 768px) {
       .actions {
         flex-wrap: nowrap;
