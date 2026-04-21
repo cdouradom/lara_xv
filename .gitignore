@@ -1,0 +1,32 @@
+# Sistema operativo
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editores / IDE
+.cursor/
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs e temporários
+*.log
+npm-debug.log*
+*.tmp
+*.bak
+*.orig
+
+# Ambiente (segredos)
+.env
+.env.*
+!.env.example
+
+# Pastas só para uso local (referências, rascunhos, cópias)
+_archive/
+scratch/
+v1/
+
+# Se no futuro existir tooling Node
+node_modules/
