@@ -1,6 +1,14 @@
-/** Base do site (Vite `base`) + caminho para ficheiros em `public/assets/`. */
+/**
+ * Base do site (Vite `base`) + caminho para ficheiros em `public/assets/`.
+ * Importante: estes URLs entram em variáveis CSS usadas dentro de CSS empacotado
+ * em `/assets/index-*.css`. Com `./assets/...` o browser resolve em relação ao CSS
+ * e obtém `/assets/assets/...` (404). Por isso normalizamos para caminho absoluto na origem.
+ */
 export function publicAsset(filename) {
   let b = import.meta.env.BASE_URL || "/";
+  if (b === "./" || b === ".") {
+    b = "/";
+  }
   if (!b.endsWith("/")) b += "/";
   return `${b}assets/${filename}`;
 }
