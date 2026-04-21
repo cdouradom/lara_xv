@@ -7,6 +7,20 @@ export function InviteReveal({ revealed, ariaHidden, onOpenRsvp }) {
       id="invite-reveal"
       aria-hidden={ariaHidden ? "true" : "false"}
     >
+      {/* Desktop: mesmo fundo fotográfico do véu (campo + floresta), por baixo do stage suave */}
+      <div className="invite-desktop-veil" aria-hidden="true">
+        <div className="invite-desktop-veil__photos">
+          <div className="invite-desktop-veil__photo invite-desktop-veil__photo--upper">
+            <img src={publicAsset("veil-photo-field.png")} alt="" width={1200} height={1600} decoding="async" loading="lazy" />
+          </div>
+          <div className="invite-desktop-veil__photo invite-desktop-veil__photo--lower">
+            <img src={publicAsset("veil-photo-forest.png")} alt="" width={1200} height={1600} decoding="async" loading="lazy" />
+          </div>
+        </div>
+        <div className="invite-desktop-veil__wash" />
+        <div className="invite-desktop-veil__glow" />
+        <div className="invite-desktop-veil__grain" />
+      </div>
       <div className="stage" aria-hidden="true">
         <div className="bg-base" />
         <div className="bg-shimmer" />

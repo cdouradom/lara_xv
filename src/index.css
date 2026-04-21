@@ -1176,3 +1176,171 @@
     .rsvp-modal__panel[hidden] {
       display: none !important;
     }
+
+    /* ========== Desktop (≥1024px): fundo = fotos do véu + cartão convite ========== */
+    .invite-desktop-veil {
+      display: none;
+    }
+
+    @media (min-width: 1024px) {
+      .invite-desktop-veil {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        isolation: isolate;
+      }
+
+      .invite-desktop-veil__photos {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        display: grid;
+        grid-template-rows: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      }
+
+      .invite-desktop-veil__photo {
+        position: relative;
+        overflow: hidden;
+        min-height: 0;
+      }
+
+      .invite-desktop-veil__photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transform: scale(1.02);
+      }
+
+      .invite-desktop-veil__photo--upper img {
+        object-position: 50% 40%;
+        opacity: 0.5;
+        -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 58%, transparent 96%);
+        mask-image: linear-gradient(180deg, #000 0%, #000 58%, transparent 96%);
+      }
+
+      .invite-desktop-veil__photo--lower img {
+        object-position: 50% 72%;
+        opacity: 0.46;
+        -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 38%, #000 100%);
+        mask-image: linear-gradient(180deg, transparent 0%, #000 38%, #000 100%);
+      }
+
+      .invite-desktop-veil__wash {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background: linear-gradient(
+          168deg,
+          rgba(253, 251, 255, 0.62) 0%,
+          rgba(248, 244, 252, 0.68) 32%,
+          rgba(241, 235, 248, 0.64) 68%,
+          rgba(253, 251, 255, 0.58) 100%
+        );
+      }
+
+      .invite-desktop-veil__glow {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        background: radial-gradient(ellipse 62% 48% at 50% 40%, rgba(186, 168, 218, 0.16) 0%, transparent 65%);
+      }
+
+      .invite-desktop-veil__grain {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        opacity: 0.035;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        mix-blend-mode: multiply;
+      }
+
+      /* Stage mais leve para o véu fotográfico respirar */
+      .invite-reveal.invite-reveal--visible .stage {
+        z-index: 1;
+        opacity: 0.26;
+      }
+
+      .invite-reveal.invite-reveal--visible .stage .bg-shimmer {
+        opacity: 0.22;
+      }
+
+      .invite {
+        z-index: 3;
+        max-width: min(40rem, calc(100vw - 3rem));
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: clamp(1.35rem, 2.8vw, 2.25rem);
+        padding-right: clamp(1.35rem, 2.8vw, 2.25rem);
+        padding-top: calc(var(--space-xl) + var(--safe-t));
+        padding-bottom: calc(var(--space-xl) + var(--safe-b) + min(22vh, 180px));
+        background: rgba(253, 251, 255, 0.76);
+        border: 1px solid rgba(123, 99, 168, 0.14);
+        border-radius: 16px;
+        box-shadow:
+          0 28px 90px rgba(4, 50, 32, 0.14),
+          0 8px 32px rgba(110, 82, 150, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(16px) saturate(1.12);
+        -webkit-backdrop-filter: blur(16px) saturate(1.12);
+      }
+
+      .hero__name {
+        font-size: clamp(5rem, 7.5vw, 8.75rem);
+      }
+
+      .hero__xv {
+        font-size: clamp(3rem, 4.2vw, 5.25rem);
+      }
+
+      .body-text {
+        max-width: min(32rem, 100%);
+        font-size: clamp(0.95rem, 1.35vw, 1.05rem);
+        line-height: 1.78;
+      }
+
+      .body-text--accent {
+        max-width: min(30rem, 100%);
+        font-size: clamp(0.68rem, 1vw, 0.78rem);
+      }
+
+      .date-poster {
+        max-width: min(24rem, 100%);
+      }
+
+      .actions-wrap {
+        max-width: min(40rem, calc(100vw - 3rem));
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 12px;
+        padding-left: clamp(1rem, 2vw, 1.75rem);
+        padding-right: clamp(1rem, 2vw, 1.75rem);
+      }
+
+      .footer-hint {
+        max-width: min(34rem, 100%);
+      }
+
+      .wa-fab {
+        right: max(1.35rem, env(safe-area-inset-right, 0px));
+        bottom: max(1.35rem, env(safe-area-inset-bottom, 0px));
+      }
+
+      .rsvp-modal__panel {
+        max-width: min(26rem, calc(100vw - 2rem));
+      }
+
+      @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+        .invite {
+          background: rgba(253, 251, 255, 0.92);
+        }
+      }
+    }
+
+    @media (min-width: 1024px) and (prefers-reduced-motion: reduce) {
+      .invite-desktop-veil__grain {
+        opacity: 0.02;
+      }
+    }
