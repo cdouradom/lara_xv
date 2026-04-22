@@ -1,6 +1,42 @@
+import { useEffect, useState } from "react";
 import { publicAsset } from "../paths.js";
 
+const PIX_COPY_PASTE =
+  "00020101021126330014br.gov.bcb.pix0111473838488025204000053039865802BR5925Lara Sousa Marques Dourad6009SAO PAULO622905251KPVP0TG0V3YZ07H0GY4FDKKY63049EB1";
+
 export function InviteReveal({ revealed, ariaHidden, onOpenRsvp }) {
+  const [pixToast, setPixToast] = useState(null);
+
+  useEffect(() => {
+    if (!pixToast) return undefined;
+    const id = window.setTimeout(() => setPixToast(null), 2600);
+    return () => window.clearTimeout(id);
+  }, [pixToast]);
+
+  const handleCopyPix = async () => {
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(PIX_COPY_PASTE);
+      } else {
+        const ta = document.createElement("textarea");
+        ta.value = PIX_COPY_PASTE;
+        ta.setAttribute("readonly", "");
+        ta.style.position = "fixed";
+        ta.style.left = "-9999px";
+        ta.style.top = "0";
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        const ok = document.execCommand("copy");
+        document.body.removeChild(ta);
+        if (!ok) throw new Error("execCommand failed");
+      }
+      setPixToast("copied");
+    } catch {
+      setPixToast("error");
+    }
+  };
+
   return (
     <div
       className={`invite-reveal${revealed ? " invite-reveal--visible" : ""}`}
@@ -119,7 +155,7 @@ export function InviteReveal({ revealed, ariaHidden, onOpenRsvp }) {
                 </button>
                 <a
                   className="action"
-                  href="https://www.canva.com/design/DAG-fuPiAW0/ucPiUcm3wT_iBzHGA8WvSw/view"
+                  href="https://www.amazon.com.br/hz/wishlist/ls/2O0T4TZJE1LKJ?ref_=wl_share"
                   target="_blank"
                   rel="noopener noreferrer"
                   title="Lista de presentes"
@@ -135,6 +171,23 @@ export function InviteReveal({ revealed, ariaHidden, onOpenRsvp }) {
                   </span>
                   <span>Presentes</span>
                 </a>
+                <button
+                  type="button"
+                  className="action"
+                  title="Copiar Pix da Lara"
+                  onClick={handleCopyPix}
+                >
+                  <span className="action__ring" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M8.5 4.5 L12 8 L15.5 4.5" />
+                      <path d="M4.5 8.5 L8 12 L4.5 15.5" />
+                      <path d="M19.5 8.5 L16 12 L19.5 15.5" />
+                      <path d="M8.5 19.5 L12 16 L15.5 19.5" />
+                      <path d="M12 8 L16 12 L12 16 L8 12 Z" />
+                    </svg>
+                  </span>
+                  <span>Pix</span>
+                </button>
               </nav>
             </div>
           </section>
@@ -152,6 +205,30 @@ export function InviteReveal({ revealed, ariaHidden, onOpenRsvp }) {
           </section>
         </div>
       </main>
+      <div
+        className={`pix-toast${pixToast ? " pix-toast--visible" : ""}${
+          pixToast === "error" ? " pix-toast--error" : ""
+        }`}
+        role="status"
+        aria-live="polite"
+      >
+        <span className="pix-toast__icon" aria-hidden="true">
+          {pixToast === "error" ? (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 8v5" />
+              <path d="M12 16h.01" />
+            </svg>
+          ) : (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12.5l4.5 4.5L19 7.5" />
+            </svg>
+          )}
+        </span>
+        <span className="pix-toast__text">
+          {pixToast === "error" ? "Não foi possível copiar. Tente novamente." : "Pix da Lara Copiado!"}
+        </span>
+      </div>
       <a
         className="wa-fab"
         href="https://api.whatsapp.com/send/?phone=5519995643602&text=Oii%2C+quero+falar+sobre+a+Festa+da+Lara%21+&type=phone_number&app_absent=0"

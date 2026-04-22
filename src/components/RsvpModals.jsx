@@ -190,6 +190,7 @@ export function RsvpModals({ open, onRequestClose }) {
                 </div>
               </div>
               <div className="rsvp-modal__footer" id="rsvp-modal-footer">
+                <p className="rsvp-footer__hint">Adicione todos os convidados no +, independente da idade.</p>
                 <button
                   type="button"
                   className={`rsvp-submit rsvp-submit--primary${submitLoading ? " rsvp-submit--loading" : ""}`}

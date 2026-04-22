@@ -1026,6 +1026,15 @@
       padding: var(--space-sm) var(--space-md) var(--space-md);
       border-top: 1px solid rgba(4, 50, 32, 0.06);
     }
+    .rsvp-footer__hint {
+      margin: 0 0 var(--space-sm);
+      font-family: "Montserrat", sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.78rem, 2.8vw, 0.86rem);
+      line-height: 1.5;
+      color: var(--text-body);
+      text-align: center;
+    }
     .rsvp-submit {
       width: 100%;
       padding: 0.72rem var(--space-md);
@@ -1264,7 +1273,7 @@
         </span>
         <span>RSVP</span>
       </button>
-      <a class="action" href="https://www.canva.com/design/DAG-fuPiAW0/ucPiUcm3wT_iBzHGA8WvSw/view" target="_blank" rel="noopener noreferrer" title="Lista de presentes">
+      <a class="action" href="https://www.amazon.com.br/hz/wishlist/ls/2O0T4TZJE1LKJ?ref_=wl_share" target="_blank" rel="noopener noreferrer" title="Lista de presentes">
         <span class="action__ring" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
         </span>
@@ -1348,6 +1357,7 @@
         <div class="rsvp-modal__rows" id="rsvp-rows" aria-live="polite"></div>
       </div>
       <div class="rsvp-modal__footer" id="rsvp-modal-footer">
+        <p class="rsvp-footer__hint">Adicione todos os convidados no +, independente da idade.</p>
         <button type="button" class="rsvp-submit rsvp-submit--primary" id="rsvp-submit-btn" aria-busy="false">
           <span class="rsvp-submit__inner">
             <span class="rsvp-spinner" id="rsvp-submit-spinner" hidden aria-hidden="true"></span>
