@@ -122,7 +122,7 @@ export function InviteReveal({ revealed, ariaHidden, onOpenRsvp }) {
               </div>
             </div>
             <p className="dress-code" data-aos="fade-up" data-aos-delay="440" data-aos-duration="800">
-              Traje Social
+              "Traje: Social elegante. Esporte fino é bem-vindo"
             </p>
           </section>
 
@@ -155,7 +155,7 @@ export function InviteReveal({ revealed, ariaHidden, onOpenRsvp }) {
                 </button>
                 <a
                   className="action"
-                  href="https://www.amazon.com.br/hz/wishlist/ls/2O0T4TZJE1LKJ?ref_=wl_share"
+                  href="https://www.amazon.com.br/hz/wishlist/ls/2EAQ0HGJSPLPR?ref_=wl_share"
                   target="_blank"
                   rel="noopener noreferrer"
                   title="Lista de presentes"
